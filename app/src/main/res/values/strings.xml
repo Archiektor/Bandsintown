@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Testtask Bandsintown</string>
+    <string name="enter_musician_name">Enter musician name</string>
+    <string name="here">Here !</string>
+    <string name="nameOfGroup">Group</string>
+    <string name="tours_available">Tours available :</string>
+    <string name="_25">25</string>
+    <string name="url">url</string>
+    <string name="facebook">Facebook :</string>
+</resources>
