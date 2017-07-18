@@ -59,13 +59,14 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="0dp"
-            android:layout_marginTop="47dp"
+            android:layout_marginTop="32dp"
             android:text="@string/nameOfGroup"
             android:textColor="@color/nameOfGroup"
             android:textSize="20sp"
             app:layout_constraintLeft_toLeftOf="@+id/imageButton"
             app:layout_constraintRight_toRightOf="@+id/imageButton"
-            app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+            app:layout_constraintTop_toBottomOf="@+id/imageButton"
+            app:layout_constraintHorizontal_bias="1.0" />
 
         <TextView
             android:id="@+id/tours"
@@ -92,18 +93,18 @@
             android:text="@string/_25"
             android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="@+id/tours"
-            app:layout_constraintLeft_toRightOf="@+id/tours"
-            app:layout_constraintRight_toLeftOf="@+id/guideline2" />
+            app:layout_constraintLeft_toRightOf="@+id/tours" />
 
         <TextView
             android:id="@+id/facebook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="8dp"
             android:text="@string/facebook"
             android:textSize="16sp"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline3"
+
             app:layout_constraintTop_toBottomOf="@+id/tours" />
 
         <TextView
@@ -133,14 +134,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="51dp" />
+            app:layout_constraintGuide_begin="166dp" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="302dp" />
+            app:layout_constraintGuide_begin="457dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="128dp" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

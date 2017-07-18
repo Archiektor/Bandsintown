@@ -3,5 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="nameOfGroup">#7db150</color>
+    <color name="nameOfGroup">#806549</color>
+    <color name="backgroundRV">#b3daec</color>
+    <color name="textRV">#020202</color>
+    <color name="divider">#d1a66e</color>
 </resources>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/backgroundRV"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp">
+
+    <TextView
+        android:id="@+id/title_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/map_button"
+        android:gravity="left"
+        android:paddingStart="8dp"
+        android:textColor="@color/textRV" />
+
+    <TextView
+        android:id="@+id/date_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_info"
+        android:gravity="left"
+        android:paddingStart="14dp"
+        android:textSize="12sp"/>
+
+    <ImageButton
+        android:id="@+id/map_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/save_button"
+        android:background="@mipmap/ic_map96"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" />
+
+    <ImageButton
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="@mipmap/ic_save96"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" />
+
+
+</RelativeLayout>
