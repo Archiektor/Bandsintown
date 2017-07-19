@@ -43,7 +43,8 @@ public class MainActivity extends Activity {
 
     private EditText editText;
     private ImageButton imageButton;
-    private String nameOfMusician;
+    private static String nameOfMusician;
+    private static String artistTitle;
     private TextView artist;
     private TextView countTours;
     private TextView url;
@@ -54,9 +55,10 @@ public class MainActivity extends Activity {
 
     private static final String STARTPOINT = "http://api.bandsintown.com/artists/";
 
-    private String imagePath;
-    private String countForCond;
-    private String urlBook;
+    private static String imagePath;
+    private static String countForCond;
+    private static String urlBook;
+
 
     private Intent intent;
     private Intent intentWeb;
@@ -87,44 +89,8 @@ public class MainActivity extends Activity {
             imagePath = savedInstanceState.getString("image");
             String invertedEditText = savedInstanceState.getString("editText");
             editText.setText(invertedEditText);
-            if (countForCond.equals("0")) {
-                artist.setTextColor(Color.parseColor("#b21007"));
-                artist.setText(nameOfMusician);
-                countTours.setText(countForCond);
-                url.setText(urlBook);
-            } else {
-                Log.i("cond", "countForCond.equals(\"0\")");
-                artist.setTextColor(Color.parseColor("#52d036"));
-                artist.setText(nameOfMusician);
-                countTours.setText(countForCond);
 
-                intent = new Intent(getApplicationContext(), SecondActivity.class);
-                intent.putExtra(EXTRA_MESSAGE, nameOfMusician);
-                intent.putExtra(SCREEN_ORIENTATION, true);
-                Log.i("SecondActivity", "tours");
-                setClicable((countForCond), 0, countForCond.length(), intent, countTours);
-
-                url.setText(urlBook);
-                intentWeb = new Intent(Intent.ACTION_VIEW, Uri.parse(urlBook));
-                Log.i("facebook", "url");
-                setClicable((urlBook), 0, urlBook.length(), intentWeb, url);
-            }
-
-
-            Picasso.with(getApplicationContext()).load(imagePath).resize(720, 570).placeholder(R.drawable.ic_wait_download).error(R.drawable.ic_error_fallback).into(imageView);
-
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!countForCond.equals("0")) {
-                        intent = new Intent(getApplicationContext(), SecondActivity.class);
-                        intent.putExtra(EXTRA_MESSAGE, nameOfMusician);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(getApplicationContext(), "No tours available", Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
+            check();
 
         } else {
             artist.setVisibility(View.GONE);
@@ -136,10 +102,7 @@ public class MainActivity extends Activity {
 
     }
 
-
     public void search(View view) {
-
-
         if (isOnline()) {
             nameOfMusician = editText.getText().toString().replaceAll("\\s", "");
             hasText = editText.getText().toString().length() > 0;
@@ -174,8 +137,8 @@ public class MainActivity extends Activity {
 
                             group = gson.fromJson(response.toString(), Musician.class);
 
-                            String name = group.getName();
-                            savedGroup.setName(name);
+                            artistTitle = group.getName();
+                            savedGroup.setName(artistTitle);
                             countForCond = String.valueOf(group.getUpcoming_event_count());
                             savedGroup.setUpcoming_event_count(Integer.valueOf(countForCond));
 
@@ -189,28 +152,8 @@ public class MainActivity extends Activity {
                             imagePath = group.getImage_url();
                             savedGroup.setImage_url(imagePath);
 
-                            if (countForCond.equals("0")) {
-                                artist.setTextColor(Color.parseColor("#b21007"));
-                                artist.setText(name);
-                                countTours.setText(countForCond);
-                                url.setText(urlBook);
-                            } else {
-                                artist.setTextColor(Color.parseColor("#52d036"));
-                                artist.setText(name);
-                                countTours.setText(countForCond);
+                            check();
 
-                                intent = new Intent(getApplicationContext(), SecondActivity.class);
-                                intent.putExtra(EXTRA_MESSAGE, name);
-                                intent.putExtra(SCREEN_ORIENTATION, false);
-                                setClicable((countForCond), 0, countForCond.length(), intent, countTours);
-
-                                url.setText(urlBook);
-                                Intent intentWeb = new Intent(Intent.ACTION_VIEW, Uri.parse(urlBook));
-                                setClicable((urlBook), 0, urlBook.length(), intentWeb, url);
-                            }
-
-
-                            Picasso.with(getApplicationContext()).load(imagePath).resize(720, 570).placeholder(R.drawable.ic_wait_download).error(R.drawable.ic_error_fallback).into(imageView);
                         }
                     },
 
@@ -221,20 +164,9 @@ public class MainActivity extends Activity {
                         }
                     }
             );
+
             requestQueue.add(obreq);
 
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!countForCond.equals("0")) {
-                        intent = new Intent(getApplicationContext(), SecondActivity.class);
-                        intent.putExtra(EXTRA_MESSAGE, nameOfMusician);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(getApplicationContext(), "No tours available", Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
         } else {
             Toast toast = Toast.makeText(getApplicationContext(),
                     "Check Your Internet Connection", Toast.LENGTH_LONG);
@@ -284,6 +216,45 @@ public class MainActivity extends Activity {
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    private void check() {
+        if (countForCond.equals("0")) {
+            artist.setTextColor(Color.parseColor("#b21007"));
+            artist.setText(artistTitle);
+            countTours.setText(countForCond);
+            url.setText(urlBook);
+        } else {
+            artist.setTextColor(Color.parseColor("#52d036"));
+            artist.setText(artistTitle);
+            countTours.setText(countForCond);
+
+            intent = new Intent(getApplicationContext(), SecondActivity.class);
+            intent.putExtra(EXTRA_MESSAGE, artistTitle);
+            intent.putExtra(SCREEN_ORIENTATION, false);
+            setClicable((countForCond), 0, countForCond.length(), intent, countTours);
+
+            url.setText(urlBook);
+            Intent intentWeb = new Intent(Intent.ACTION_VIEW, Uri.parse(urlBook));
+            setClicable((urlBook), 0, urlBook.length(), intentWeb, url);
+        }
+
+
+        Picasso.with(getApplicationContext()).load(imagePath).resize(720, 570).placeholder(R.drawable.ic_wait_download).error(R.drawable.ic_error_fallback).into(imageView);
+
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!countForCond.equals("0")) {
+                    intent = new Intent(getApplicationContext(), SecondActivity.class);
+                    intent.putExtra(EXTRA_MESSAGE, nameOfMusician);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "No tours available", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
 }
